@@ -27,6 +27,6 @@ public class OrderDTO {
     private LocalDateTime creationDate;
     private LocalDateTime lastModifiedDate;
     private StatusDTO status;
-    private UserDTO user;
+    private UserDTO customer;
     private Set<ItemDTO> Items;
 }
