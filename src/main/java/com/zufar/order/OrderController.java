@@ -22,10 +22,12 @@ import java.util.Collection;
 public class OrderController {
 
     private final OrderService orderService;
+    private final OrderReportService orderReportService;
 
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, OrderReportService orderReportService) {
         this.orderService = orderService;
+        this.orderReportService = orderReportService;
     }
 
     @GetMapping
@@ -65,5 +67,11 @@ public class OrderController {
     public @ResponseBody
     OrderDTO changeOrderStatus(@RequestBody StatusDTO status, @RequestParam Long orderId) {
         return orderService.updateStatus(status, orderId);
+    }
+
+    @GetMapping(value = "/{id}/report")
+    public @ResponseBody
+    String exportOrderReport(@PathVariable Long id, @RequestParam(defaultValue = "CSV") String type) {
+        return orderReportService.processOrderReport(id, type);
     }
 }
